@@ -2,6 +2,8 @@ package Vistas;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import javax.swing.Icon;
@@ -9,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -28,6 +31,8 @@ public class VistaJuego extends JFrame{
         
     private JLabel lblFichaInactiva;
     private JLabel lblFichaActiva;
+    
+    private JTextField txtListener;
     
     private ArrayList<Tarjeta> tarjetas = new ArrayList();
 
@@ -61,6 +66,7 @@ public class VistaJuego extends JFrame{
         asignacionImagenesALabels();
         
         configurarLabelsDeTexto();
+        configurarEntradaDeTexto();
         
         /* Configuración imagenes */
         
@@ -138,6 +144,10 @@ public class VistaJuego extends JFrame{
         }
     }
     
+    public void addTxtListenerKeyListener(KeyListener listenControles){
+        txtListener.addKeyListener(listenControles);
+    }
+    
     
     public JLabel saberSiUnaTarjetaFuePresionada(JLabel tarjetaPreguntada){
         
@@ -167,6 +177,9 @@ public class VistaJuego extends JFrame{
     
     public void ponerTarjetActiva(Tarjeta tarjetaIngresada){
 
+        for (Tarjeta tarjeta: tarjetas) {
+            tarjeta.cambiarInactivo(); 
+        }
         
         for (Tarjeta tarjeta: tarjetas) {
             if(tarjeta == tarjetaIngresada){
@@ -176,13 +189,25 @@ public class VistaJuego extends JFrame{
     }
     
     public void ponerTarjetInactiva(Tarjeta tarjetaIngresada){
-
-        
+       
         for (Tarjeta tarjeta: tarjetas) {
             if(tarjeta == tarjetaIngresada){
                 tarjeta.cambiarInactivo();
             }
         }
+    }
+    
+    public void ponerTarjetaPosicionActiva(ArrayList<Integer> tarjetaIngresada){
+       
+        for (Tarjeta tarjeta: tarjetas) {
+            tarjeta.cambiarInactivo(); 
+        }
+        for (Tarjeta tarjeta: tarjetas) {
+            if(tarjetaIngresada.equals(tarjeta.getPosicionTablero())){
+                ponerTarjetActiva(tarjeta);
+            }
+        }
+        
     }
     
     /*
@@ -283,8 +308,11 @@ public class VistaJuego extends JFrame{
         
         agregarTarjetasTablero();
         jpContenidoGeneral.add(lblPuntos);
+       
         jpContenidoGeneral.add(lblNombre);
+        jpContenidoGeneral.add(txtListener);
         jpContenidoGeneral.add(lblFondoJuego);
+         
     }
     
     public void agregarTarjetasTablero(){
@@ -293,6 +321,16 @@ public class VistaJuego extends JFrame{
         }
     }
     
+    public void configurarEntradaDeTexto(){
+        txtListener = new JTextField();
+        
+        txtListener.setBounds(-10, -10, 10, 10);
+        txtListener.setHorizontalAlignment(JTextField.CENTER);
+        txtListener.setBorder(null);
+        txtListener.setForeground(Color.GRAY);
+        txtListener.setFont(new Font("arial", Font.BOLD, 30)); 
+        
+    }
     
 
     

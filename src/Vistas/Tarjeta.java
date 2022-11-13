@@ -45,6 +45,8 @@ public class Tarjeta extends JFrame{
         coordenada.add(posicionX);
         coordenada.add(posicionY);
         
+        
+        
         return coordenada;
         
     }
