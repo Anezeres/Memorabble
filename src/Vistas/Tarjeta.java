@@ -26,6 +26,7 @@ public class Tarjeta extends JFrame{
         this.imagenTarjeta = new JLabel(imagenTarjetaInactiva);
     }
     
+    
     public void cambiarActivo(){
         Icon imagenTarjetaActiva = new ImageIcon("src\\Imagenes\\Tarjetas\\00-TarjetaActiva-img.png");
         imagenTarjeta.setIcon(imagenTarjetaActiva);
@@ -45,10 +46,12 @@ public class Tarjeta extends JFrame{
         coordenada.add(posicionX);
         coordenada.add(posicionY);
         
-        
-        
-        return coordenada;
-        
+        return coordenada;     
+    }
+    
+    public void cambiarTarjetaConFigura(String figura, String color){
+        Icon imagen = new ImageIcon("src\\Imagenes\\"+figura+"\\"+color+".png");
+        imagenTarjeta.setIcon(imagen);
     }
     
 

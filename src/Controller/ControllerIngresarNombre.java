@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,7 +33,6 @@ public class ControllerIngresarNombre {
         
         vistaTema.iniciarComponentesTema();
         vistaTema.configurarVistaTema();
-        modelo.getRonda().setNumeroPartidas(5);
         
         agregarControllers();
     }
@@ -105,7 +106,9 @@ public class ControllerIngresarNombre {
                 modelo.getJugador().setNombre(vistaNombre.getNombre());
                 System.out.println("Hola Mundo");
                 VistaJuego vistaJuego = new VistaJuego();
+                    
                 ControllerJuego controllerJuego = new ControllerJuego(modelo,vistaJuego);
+                    
                 
                 
             }else if(event.getSource() == vistaNombre.getLblVolver()){

@@ -28,9 +28,6 @@ public class ControllerFinal {
         vistaFinal.configurarVistaFinal();
         
         vistaFinal.setNombre(modelo.getJugador().getNombre());
-        vistaFinal.setGanadas(modelo.getJugador().getPorcentajeGanadas());
-        vistaFinal.setPerdidas(modelo.getJugador().getPorcentajePerdidas());
-        vistaFinal.setJugadas(modelo.getJugador().getPartidasJugadas());
         
         agregarControllers();
     }
@@ -61,8 +58,6 @@ public class ControllerFinal {
         public void terminarPartida(){
             if (JOptionPane.showConfirmDialog(null, "¿Quieres seguir jugando?", "Mensaje", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 vistaFinal.dispose();
-                modelo.getJugador().reiniciarNumeroIntentos();
-                modelo.getJugador().reiniciarErrores();
                 VistaPrincipal vista = new VistaPrincipal();
                 ControllerPrincipal controller = new ControllerPrincipal(modelo, vista);
                             

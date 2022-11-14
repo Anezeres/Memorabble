@@ -2,7 +2,6 @@ package Vistas;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
@@ -126,10 +125,39 @@ public class VistaJuego extends JFrame{
     
     
     
+    
     public void ponerCursorActivoTarjetas(){
         for(Tarjeta tarjeta: tarjetas){
             tarjeta.getImagenTarjeta().setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         }
+    }
+    
+    public void ponerFichasEnJuego(ArrayList<ArrayList<Integer>> coordenadas, ArrayList<String> colores, ArrayList<String> figuras){
+        System.out.println("Coordenadas: " + coordenadas);
+        int contador=0;
+        for(ArrayList<Integer> coordenada: coordenadas){
+            for (Tarjeta tarjeta: tarjetas) {
+                
+                if(tarjeta.getPosicionTablero().equals(coordenada)){
+                    
+                    tarjeta.cambiarTarjetaConFigura(figuras.get(contador), colores.get(contador));
+                    
+                    System.out.println("Coordenada: "+ coordenada + "      Tarjeta: " + tarjeta.getPosicionTablero());
+                    System.out.println("Figuta: " + figuras.get(contador));
+                    System.out.println("Color: " + colores.get(contador));
+                    contador = contador + 1;
+                }
+            }
+        }
+
+    }
+    
+    public void limpiarTablero(){
+        
+        for (Tarjeta tarjeta: tarjetas) {
+            tarjeta.cambiarInactivo(); 
+        }
+
     }
     
 
@@ -209,49 +237,6 @@ public class VistaJuego extends JFrame{
         }
         
     }
-    
-    /*
-    public void ponerLetraCorrecta(char letra){
-        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        
-        for(int i = 0; i<letras.length() ; i++){
-            if(letra == letras.charAt(i)){
-                lblLetras[i].setIcon(imagenesLetrasCorrectas[i]);
-            }
-        }
-    }
-    
-    public void agregarLetraSeleccionada(int posicion, int sizePalabra, JLabel letraSeleccionada){
-        int posicionInicial = 0;
-        
-        ponerLetraCorrecta(saberLetraPresionada(letraSeleccionada));
-        switch (sizePalabra) {
-            case 4 -> posicionInicial = 523;
-            case 5 -> posicionInicial = 491;
-            case 6 -> posicionInicial = 450;
-            case 7 -> posicionInicial = 410;
-            default -> {
-            }
-        }
-        if(posicion == -1){
-            System.out.println("Ignora la letra");
-        }else{
-            for(int i = 1; i<posicion + 1;i++){
-            if(i == posicion){
-                JLabel nuevaLetraSeleccion = new JLabel(letraSeleccionada.getIcon());
-                nuevaLetraSeleccion.setBounds(posicionInicial, 126, 73, 73);
-                jpContenidoGeneral.add(nuevaLetraSeleccion,10,10);
-            }
-            posicionInicial = posicionInicial + 83;
-            }
-        }
-    }
-    
-    public void cambiarFondoSegunSizePalabra(int vidas){
-        Icon imagenFondo = new ImageIcon("src\\Imagenes\\Fondo\\24-FondoJuego"+vidas+"-img.png");
-        lblFondoJuego.setIcon(imagenFondo);
-    }
-    */
     
     public void setNombre(String nuevoNombre){
         if(nuevoNombre.length() > 10){

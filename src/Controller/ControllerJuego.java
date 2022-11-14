@@ -3,14 +3,17 @@ package Controller;
 import Modelo.ModeloPrincipal;
 import Vistas.Tarjeta;
 import Vistas.VistaJuego;
-import Vistas.VistaFinal;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,32 +23,28 @@ import javax.swing.JOptionPane;
  * 
  */
 
-public final class ControllerJuego {
+public final class ControllerJuego{
     
     private final ModeloPrincipal modelo;
     private final VistaJuego vistaJuego;
     private ArrayList<Integer> tarjetaActualActiva;
+    
 
-    public ControllerJuego(ModeloPrincipal modelo, VistaJuego vistaAhorcado) {
+    public ControllerJuego(ModeloPrincipal modelo, VistaJuego vistaJuego){
         this.modelo = modelo;
-        this.vistaJuego = vistaAhorcado;
+        this.vistaJuego = vistaJuego;
         
-        vistaAhorcado.iniciarComponentesAhorcado();
-        vistaAhorcado.configurarVistaAhorcado();
+        vistaJuego.iniciarComponentesAhorcado();
+        vistaJuego.configurarVistaAhorcado();
         tarjetaActualActiva = new ArrayList<>();
         tarjetaActualActiva.add(1);
         tarjetaActualActiva.add(1);
         
-        //modelo.getJugador().setPartidasJugadas(modelo.getJugador().getPartidasJugadas() + 1);
-        
-        //int sizePalabra = modelo.getRonda().getSizePalabraActual();
-        //vistaAhorcado.cambiarFondoSegunSizePalabra(sizePalabra);
-        
-        vistaAhorcado.setNombre(modelo.getJugador().getNombre());
-        vistaAhorcado.setIntentos(modelo.getJugador().getNumeroIntentos());
-        
+        vistaJuego.setNombre(modelo.getJugador().getNombre());
         
         agregarControllers();
+        
+        //
     }
     
     public void agregarControllers(){
@@ -102,6 +101,8 @@ public final class ControllerJuego {
     }
     
     public class KeyListenerController implements KeyListener{
+        private Timer timer;
+        
         @Override
         public void keyTyped(KeyEvent event) {
 
@@ -163,10 +164,17 @@ public final class ControllerJuego {
                     }
                 }
                 case KeyEvent.VK_SPACE -> {
-                    System.out.println("Espacio");
+                    
                 }
                 case KeyEvent.VK_ENTER -> {
-                    System.out.println("Enter");
+                    ArrayList<ArrayList<Integer>> coordenadas = modelo.getJuego().coordenadaAleatoria(5);
+                    ArrayList<String> colores = modelo.getJuego().colorAleatorio(5);
+                    ArrayList<String> figuras = modelo.getJuego().figuraAleatoria(5);
+
+                    vistaJuego.ponerFichasEnJuego(coordenadas, colores, figuras);
+                    
+                               
+                    
                 }
                 default -> {
                 }
