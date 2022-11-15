@@ -75,7 +75,7 @@ public class VistaBeneficios extends JFrame{
     
     public void asignacionImagenesALabels(){
         /* Cargado de imagenes */
-        Icon imagenBeneficios = new ImageIcon("src\\Imagenes\\26-Beneficios-img.gif");
+        Icon imagenBeneficios = new ImageIcon("src\\Imagenes\\26-Beneficios-img.png");
         Icon imagenCerrar = new ImageIcon("src\\Imagenes\\04-Cerrar-img.png");
         Icon imagenVolver = new ImageIcon("src\\Imagenes\\13-Volver-img.png");
         
