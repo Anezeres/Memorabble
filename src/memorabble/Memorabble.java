@@ -4,6 +4,12 @@
  */
 package memorabble;
 
+import Controller.ControllerPrincipal;
+import Modelo.Jugador;
+import Modelo.ModeloPrincipal;
+import Modelo.Juego;
+import Vistas.VistaPrincipal;
+
 /**
  *
  * @author RYZEN
@@ -14,7 +20,11 @@ public class Memorabble {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+   
+        VistaPrincipal vista = new VistaPrincipal();
+        ModeloPrincipal modelo = new ModeloPrincipal();
+        
+        ControllerPrincipal controller = new ControllerPrincipal(modelo, vista);
     }
     
 }
