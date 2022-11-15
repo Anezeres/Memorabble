@@ -2,7 +2,10 @@ package Controller;
 
 import Modelo.ModeloPrincipal;
 import Vistas.Tarjeta;
+import Vistas.VistaFinal;
 import Vistas.VistaJuego;
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,11 +31,15 @@ public final class ControllerJuego{
     private final ModeloPrincipal modelo;
     private final VistaJuego vistaJuego;
     private ArrayList<Integer> tarjetaActualActiva;
+    private ArrayList<Integer> tarjetaCorrecta;
+    
     
 
     public ControllerJuego(ModeloPrincipal modelo, VistaJuego vistaJuego){
         this.modelo = modelo;
         this.vistaJuego = vistaJuego;
+        
+        modelo.getJugador().comezarTiempo();
         
         vistaJuego.iniciarComponentesAhorcado();
         vistaJuego.configurarVistaAhorcado();
@@ -43,6 +50,15 @@ public final class ControllerJuego{
         vistaJuego.setNombre(modelo.getJugador().getNombre());
         
         agregarControllers();
+        
+        Robot r = null;
+        try {
+            r = new Robot();
+            r.keyPress(KeyEvent.VK_ENTER);
+            r.keyRelease(KeyEvent.VK_ENTER);
+        } catch (AWTException ex) {
+            Logger.getLogger(ControllerJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //
     }
@@ -63,12 +79,50 @@ public final class ControllerJuego{
         public void mouseClicked(MouseEvent event){
             JLabel cualquierLetraPresionada = vistaJuego.saberSiUnaTarjetaFuePresionada( (JLabel) event.getSource());
             
-            
-            if (event.getSource() == cualquierLetraPresionada){
+            if(modelo.getJugador().getVidas() != 1){
+                if (event.getSource() == cualquierLetraPresionada){
                 Tarjeta tarjetaPresionada = vistaJuego.saberTarjetaPresionada((JLabel) event.getSource());
-                System.out.println("Se precionó");
                 System.out.println(tarjetaPresionada.getPosicionTablero());
+                
+                System.out.println("Tarjeta Correcta: " + tarjetaCorrecta);
+                
+                    if(tarjetaCorrecta.equals(tarjetaPresionada.getPosicionTablero())){
+                        modelo.getJugador().setPuntos(modelo.getJugador().getPuntos() + 100);
+                        modelo.getJugador().setAciertos(modelo.getJugador().getAciertos() + 1);
+                        System.out.println("Vidas Jugador: " + modelo.getJugador().getVidas());
+                        System.out.println("Aciertos Jugador: " + modelo.getJugador().getAciertos());
+                        vistaJuego.setPuntos(modelo.getJugador().getPuntos());
+                    }else{
+                        modelo.getJugador().setVidas(modelo.getJugador().getVidas() - 1);
+                        vistaJuego.cambiarImagenFondo(modelo.getJugador().getVidas());
+                        System.out.println("Vidas Jugador: " + modelo.getJugador().getVidas());
+                        System.out.println("Aciertos Jugador: " + modelo.getJugador().getAciertos());
+                    }
+                }else{
+                    
+                }
+                
+                Robot r = null;
+                try {
+                    r = new Robot();
+                    r.keyPress(KeyEvent.VK_ENTER);
+                    r.keyRelease(KeyEvent.VK_END);
+                } catch (AWTException ex) {
+                    Logger.getLogger(ControllerJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                }
+                
+            }else{
+                modelo.getJugador().terminarTiempo();
+                modelo.getJugador().calcularTiempo();
+                vistaJuego.dispose();
+                VistaFinal vistafinal = new VistaFinal();
+                ControllerFinal controller = new ControllerFinal(modelo, vistafinal);
             }
+            
+            
+            
+            
 
         }
         
@@ -164,17 +218,49 @@ public final class ControllerJuego{
                     }
                 }
                 case KeyEvent.VK_SPACE -> {
+                    Robot r = null;
+                    try {
+                        r = new Robot();
+                    } catch (AWTException ex) {
+                        Logger.getLogger(ControllerJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        r.keyPress(KeyEvent.VK_ENTER);
+                        r.keyRelease(KeyEvent.VK_ENTER);
+                                        
+ 
+                }
+                case KeyEvent.VK_W -> {
+                    try {   
+
+                        Thread.sleep(2000);
+                       vistaJuego.limpiarTablero();
+                        System.out.println("hola");
+                    } catch (Exception e) {
+                        System.out.println("e");
+                    }  
                     
+                    
+ 
                 }
                 case KeyEvent.VK_ENTER -> {
                     ArrayList<ArrayList<Integer>> coordenadas = modelo.getJuego().coordenadaAleatoria(5);
                     ArrayList<String> colores = modelo.getJuego().colorAleatorio(5);
                     ArrayList<String> figuras = modelo.getJuego().figuraAleatoria(5);
-
+                    
+                    
                     vistaJuego.ponerFichasEnJuego(coordenadas, colores, figuras);
+                    vistaJuego.colocarTarjetaCorrecta(coordenadas.get(0), colores.get(0), figuras.get(0));
+                    tarjetaCorrecta = coordenadas.get(0);
                     
-                               
-                    
+                    Robot r = null;
+                    try {
+                        r = new Robot();
+                        r.keyPress(KeyEvent.VK_W);
+                        r.keyRelease(KeyEvent.VK_W);
+                    } catch (AWTException ex) {
+                        Logger.getLogger(ControllerJuego.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        
                 }
                 default -> {
                 }

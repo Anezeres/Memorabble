@@ -28,6 +28,8 @@ public class ControllerFinal {
         vistaFinal.configurarVistaFinal();
         
         vistaFinal.setNombre(modelo.getJugador().getNombre());
+        vistaFinal.setPuntos(modelo.getJugador().getPuntos());
+        vistaFinal.setTiempo("" + modelo.getJugador().getMinutos() + ":" + modelo.getJugador().getSegundos());
         
         agregarControllers();
     }
@@ -58,6 +60,8 @@ public class ControllerFinal {
         public void terminarPartida(){
             if (JOptionPane.showConfirmDialog(null, "¿Quieres seguir jugando?", "Mensaje", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 vistaFinal.dispose();
+                modelo.getJugador().setVidas(3);
+                modelo.getJugador().setPuntos(0);
                 VistaPrincipal vista = new VistaPrincipal();
                 ControllerPrincipal controller = new ControllerPrincipal(modelo, vista);
                             

@@ -26,6 +26,13 @@ public class Tarjeta extends JFrame{
         this.imagenTarjeta = new JLabel(imagenTarjetaInactiva);
     }
     
+    public Tarjeta() {
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
+        Icon imagenTarjetaInactiva = new ImageIcon("src\\Imagenes\\Tarjetas\\00-TarjetaInactiva-img.png");
+        this.imagenTarjeta = new JLabel(imagenTarjetaInactiva);
+    }
+    
     
     public void cambiarActivo(){
         Icon imagenTarjetaActiva = new ImageIcon("src\\Imagenes\\Tarjetas\\00-TarjetaActiva-img.png");

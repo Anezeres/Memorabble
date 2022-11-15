@@ -28,8 +28,10 @@ public class Jugador{
     private Duration finalPartidaTime;
     private int minutos;
     private int segundos;
+    private int aciertos;
 
     public Jugador() {
+        this.vidas = 3;
     }
     
     public void comezarTiempo(){
@@ -103,6 +105,16 @@ public class Jugador{
     public void setSegundos(int segundos) {
         this.segundos = segundos;
     }
+
+    public int getAciertos() {
+        return aciertos;
+    }
+
+    public void setAciertos(int aciertos) {
+        this.aciertos = aciertos;
+    }
+    
+    
 
   
 }

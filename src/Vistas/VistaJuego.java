@@ -152,6 +152,18 @@ public class VistaJuego extends JFrame{
 
     }
     
+    public void colocarTarjetaCorrecta(ArrayList<Integer> coordenada, String color, String figura){
+        
+        Tarjeta nuevaTarjeta = new Tarjeta();
+        jpContenidoGeneral.add(nuevaTarjeta.getImagenTarjeta(),3);
+        tarjetas.add(nuevaTarjeta);
+        nuevaTarjeta.cambiarTarjetaConFigura(figura, color);
+        nuevaTarjeta.getImagenTarjeta().setBounds(858, 265, 90, 90);
+        
+
+
+    }
+    
     public void limpiarTablero(){
         
         for (Tarjeta tarjeta: tarjetas) {
@@ -246,8 +258,13 @@ public class VistaJuego extends JFrame{
         }
     }
     
-    public void setIntentos(int numeroIntentos){
-        lblPuntos.setText(String.valueOf(numeroIntentos));
+    public void setPuntos(int numeroPuntos){
+        lblPuntos.setText(String.valueOf(numeroPuntos));
+    }
+    
+    public void cambiarImagenFondo(int vidas){
+        Icon imagenFondo = new ImageIcon("src\\Imagenes\\24-FondoJuego"+ vidas +"-img.png");
+        lblFondoJuego.setIcon(imagenFondo);
     }
     
     
